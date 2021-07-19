@@ -2,14 +2,18 @@ body{
     margin: 0;
     
 }
+/* Main Container */
 .container{
     display: grid;
-    grid-template-rows: 10rem minmax(100rem, auto);
-   grid-template-columns: 1.1fr 2fr 1.1fr;
+    grid-template-rows: 6rem minmax(100rem, auto);
+   grid-template-columns: 1fr 3fr 1fr;
    grid-template-areas: "head head head";
 }
+/* Navigation bar */
 .header{
+    position: fixed;
     grid-area: head;
+    background-color:rgb(246, 246, 246);
     width: 100%;
     height: 64px;
     border-bottom: 1px solid #e9e9e9;
@@ -19,11 +23,12 @@ body{
     align-items: center;
     justify-content: space-between;
 }
+
 .header__logo{
   margin-left: 4rem;
   max-width: 100%;
   max-height: 100%;
-  width: 100px;
+  width: 150px;
   height: 4.5rem;
   
 }
@@ -33,17 +38,19 @@ body{
     justify-content: center; 
     align-items: center;
     margin-right: auto;
-    margin-left: 340px;
+    margin-left: 300px;
     background-color: transparent;
     /* margin: 0.5rem;     */
    
 }
 .search__field{
-    border: none;
     width: 40rem;
     height: 2rem;
-     border: 1px solid gray;
-    border-radius: 30px;   
+    border: 1px solid #e9e9e9;
+    box-shadow: 0 0 0 transparent;
+    border-radius: 30px; 
+    margin:10px;
+    outline:none;  
 }
 .icon{
     display: flex;
@@ -56,6 +63,52 @@ body{
     height: 20px;
     padding-right: 5px;
 }
+
+
+
+
+
+/* 
+*
+*               Trending Now Feature
+*
+*/
+
 .trending{
-    position:relative ;
+    margin-top: 80px;
+}
+/* Scrolling horizontal */
+.scrolling{
+    /* for horizontal scrolling */
+      overflow-x: scroll;
+      width: 1000px;
+     white-space: nowrap;
+}
+
+.trending_heading{
+    /* for horizontal scrolling */
+      overflow-x: scroll;
+      width: 1000px;
+     white-space: nowrap;
+}
+.trending_data{
+    display:flex;    
+    margin-bottom: 10px;
+}
+.trending_image{
+ padding-left: 10px;
+ padding-right: 10px;
+ text-align: center;
+}
+.trending_title{
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+.trending_author{
+    margin-top: 5px;
+}
+
+/* Radio features */
+.radio_image{
+    border-radius: 100%;
 }
