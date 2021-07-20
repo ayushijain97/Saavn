@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../dist/css/style.css"/>
     <link rel="icon shortcut" type="image/x-icon" href="https://staticfe.saavn.com/web6/prod/dist/1626461415/_i/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 </head>
 <body>
     <div class="container">
@@ -26,16 +27,20 @@
             </form>
         </header>
         <!-- side bar -->
-        <div class="sidebar">
+        <aside class="sidebars">
+            <div class="sidebar">
             <h3>Library</h3>
             <nav>
-                <ul>
-                    <li class="side_list"></li>
-                    <li class="side_list"></li>
-                    <li class="side_list"></li>
+                <ul class="sidebar_list">
+                    <li class="sidebar_item"><i class="fas fa-history"></i>  History</li>
+                    <li class="sidebar_item"><i class="fas fa-music"></i>  Songs</li>
+                    <li class="sidebar_item"><i class="fas fa-compact-disc"></i>  Albums</li>
+                    <li class="sidebar_item"><i class="fas fa-podcast"></i>  Podcasts</li>
+                    <li class="sidebar_item"><i class="fas fa-microphone-alt"></i>  Artists</li>
                 </ul>
             </nav>
-        </div>
+            </div>
+        </aside>
         <!-- trending Now  -->
         <div>
         <section  class="trending">
@@ -45,7 +50,6 @@
                         <!-- 1st View of trending songs -->
                         <div class="trending_image">
                             <img src="https://c.saavncdn.com/725/Dagaa-Hindi-2021-20210709050408-150x150.jpg?bch=451848" alt=""/>
-                            <i ></i>
                             <h4 class="trending_title">Dagaa</h4>
                             <p class="trending_author">Mohd. Danish, Himesh</p>
                         </div>
@@ -335,16 +339,122 @@
 
                     </div>
                 </div>
-        </section>
+            </section>
+            <!-- 
+
+
+                    Editorial picks
+
+
+             -->
+        <section class="trending">
+            <h2>Editorial Picks</h2>
+                <div class="scrolling">
+                    <div class="trending_data">
+                        <!-- 1st view of Radio Station -->
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/RomancewithShammiKapoor_20200121050234_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Romance with S..</h4>
+                            <p class="trending_author">2.1K Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/ShankarEhsaanLoyHits_20210222180224_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Shankar EhsaanLoy..</h4>
+                            <p class="trending_author">624 Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/YaadonKiBaraatKK_20190531092100_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Yaadon Ki Baraat KK</h4>
+                            <p class="trending_author">5.1K Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/FreshVoices_20210716181043_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Fresh Voices</h4>
+                            <p class="trending_author">3.3K Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/NothingBut90s_20210120154336_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Nothing But 90s</h4>
+                            <p class="trending_author">3.3K Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/Editor_sPicksHindi_20210614160329_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Editor's Pick - Hindi</h4>
+                            <p class="trending_author">JioSaavn</p>
+                        </div>
+
+                        <!-- 2nd View of Radio station -->
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/DesiCollaborations_20210717163618_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Desi Collaborations</h4>
+                            <p class="trending_author">10.8K Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/IshqRemixed_20210719162339_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Ishq Remixed</h4>
+                            <p class="trending_author">Just Updated</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/RetroChill_20210716074023_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Retro Chill</h4>
+                            <p class="trending_author">6.4K Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/UpbeatTuesdaysHindi_20200117055853_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Tuesday Toppers...</h4>
+                            <p class="trending_author">Just Updated</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/IndipopHits2020Hindi_20201202162308_150x150.jpg" alt="" />
+                            <h4 class="trending_title">Indipop Hits 2020..</h4>
+                            <p class="trending_author">50.2K Followers</p>
+                        </div>
+                        <div class="trending_image">
+                            <img src="https://c.saavncdn.com/editorial/2000sDanceDhamaaka_20210524163821_150x150.jpg" alt="" />
+                            <h4 class="trending_title">2000s Dance Dham..</h4>
+                            <p class="trending_author">19.7K Followers</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
         
         </div>
         
-        
+         <!-- queue -->
+        <div></div>
 
-       
-        
+
+        <!-- 
+
+                Playing tab
+
+         -->
+         <aside class="playing">
+             <div class="playing_data">
+                 <img src="https://c.saavncdn.com/399/Panghat-From-Roohi--Hindi-2021-20210518195819-50x50.jpg" alt="" class="playing_image"/>
+                 <div class="playing_details">
+                 <h4 class="playing_title">Baarish Ban Jaana</h4>
+                 <span> <p class="playing_author">Payal Dev,Stebin Ben</p></span>
+                 </div>
+             </div>
+             <ul class="playing_icons">
+                 <li class="playing_song playing__repeat"><span class="material-icons">repeate8b8</span></li>
+                 <li class="playing_song playing__backward"><i class="fas fa-step-backward fa-2x"></i></li>
+                 <li class="playing_song playing__pause"><i class="fas fa-pause fa-2x"></i></li>     
+                 <li class="playing_song playing__forward"><i class="fas fa-step-forward fa-2x"></i></li>
+                 <li class="playing_song playing__repeat"><span class="material-icons">shufflee043</span></li>     
+             </ul>
+             <ul class="playing_sound">
+                 <li class="playing__space playing__timer"><span>0:33 / 3:48</span></li>
+                 <li class="playing__space playing__color playing__setting"><i class="fas fa-ellipsis-h fa-lg"></i></li>
+                 <li class="playing__space playing__color playing__volume"><i class="fas fa-volume-up fa-lg"></i></li>
+                 <li class="playing__space playing__color playing__resize"><i class="fas fa-expand-alt fa-2x"></i></li>
+             </ul>
+
+            </aside>  
 
     </div>
-    
+    <script src="https://kit.fontawesome.com/95b93b2bd7.js" crossorigin="anonymous"></script>
 </body>
 </html>
