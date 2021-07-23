@@ -1,9 +1,13 @@
 import Trending from "./model/Trending.js";
-// creating the audio tag
+// 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
+
+//2.) Creating new object
 const trending = new Trending();
 console.log(trending);
 
+
+//3.) audio playing duration 
 audioPlayer.addEventListener('loadedmetadata', function() {
     console.log("Playing " + audioPlayer.src + ", for: " + audioPlayer.duration + "seconds.");
     const duration = audioPlayer.duration;
@@ -12,21 +16,43 @@ audioPlayer.addEventListener('loadedmetadata', function() {
     getElement('.audio_duration').innerHTML = Math.floor(duration / 60) + ":" + Math.floor(duration % 60);
 });
 
-audioPlayer.addEventListener('timeupdate', (event) => {
+// 4.)audio playing currentTime
+ audioPlayer.addEventListener('timeupdate', (event) => {
     const currentTime = Math.floor(audioPlayer.currentTime);
     const duration = Math.floor(audioPlayer.duration);
     console.log("Current Time ", currentTime, " and Duration ", duration);
-    getElement('.audio_current_time').innerHTML = Math.floor(currentTime / 60) + ":" + Math.floor(currentTime);
-}, false);
+    let sec=currentTime;
+    sec = sec % 3600;
+    let min= Math.floor(sec/60);
+       sec=Math.floor(sec% 60);
+                if (sec.toString().length < 2) sec = "0" + sec;
+                if (min.toString().length < 2) min = "0" + min;
+    getElement('.audio_current_time').innerHTML =  min+ ":" +sec;
+               
+    //calculation for seekBar 
+    getElement('.slider').min = audioPlayer.startTime;
+    getElement('.slider').max = audioPlayer.duration;
+    getElement('.slider').value = audioPlayer.currentTime;
 
+}, false);
+// audio playing seekBar
+audioPlayer.addEventListener('onchange',()=>{
+    audioPlayer.currentTime = getElement('.slider').value;
+})
+
+// 5.)calling next song on ending up the song 
 audioPlayer.onended = () => {
     playTrack(getNextSong());
 }
-
+// 6.)audio player duration 
 audioPlayer.addEventListener('durationchange', function() {
     console.log("Playing " + audioPlayer.src + ", for: " + audioPlayer.duration + "seconds.");
-});
+            getElement('.slider').min = 0;
+            getElement('.slider').max = audio.duration;
 
+},false);
+
+// 7.)Playing  song through button 
 let indexOfMusicBeingPlayed = 0;
 
 const play = () => {
@@ -37,9 +63,6 @@ const play = () => {
     } else {
         playTrack(trending.url[indexOfMusicBeingPlayed]);
     }
-    // // trending.audioPlayer;
-    // trending.url.forEach(el => playTrack(el));
-    // // trending.playTrack();
 }
 
 const pause = () => {
@@ -51,7 +74,6 @@ const pause = () => {
 const next = () => {
     playTrack(getNextSong());
 }
-
 const prev = () => {
     playTrack(getPreviousSong());
 }
@@ -100,3 +122,4 @@ document.querySelector(".playing__pause").addEventListener("click", pause);
 document.querySelector(".playing__play").addEventListener("click", play);
 document.querySelector(".playing__previous").addEventListener("click", prev);
 document.querySelector(".playing__next").addEventListener("click", next);
+document.querySelector(".")

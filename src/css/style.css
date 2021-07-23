@@ -188,6 +188,14 @@ body{
     color: rgb(56, 53, 53);
 }
 
-.slidecontainer {
-    align-items: center;
+.slideContainer{
+    display: flex;
+    bottom: 78px;
+     width: 100%;
+    position: fixed;  
+}
+.slider{
+    width: 100%;
+    margin-bottom: 0px;
+
 }
