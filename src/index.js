@@ -35,10 +35,6 @@ audioPlayer.addEventListener('loadedmetadata', function() {
     getElement('.slider').value = audioPlayer.currentTime;
 
 }, false);
-// audio playing seekBar
-audioPlayer.addEventListener('onchange',()=>{
-    audioPlayer.currentTime = getElement('.slider').value;
-})
 
 // 5.)calling next song on ending up the song 
 audioPlayer.onended = () => {
@@ -48,9 +44,19 @@ audioPlayer.onended = () => {
 audioPlayer.addEventListener('durationchange', function() {
     console.log("Playing " + audioPlayer.src + ", for: " + audioPlayer.duration + "seconds.");
             getElement('.slider').min = 0;
-            getElement('.slider').max = audio.duration;
+            getElement('.slider').max = audioPlayer.duration;
 
 },false);
+//volume changes
+// unction ChangeVolume() {
+//             var myVol = volumeRange.value;
+//             audio.volume = myVol;
+//             if (myVol == 0) {
+//                 audio.muted = true;
+//             } else {
+//                 audio.muted = false;
+//             }
+//         }
 
 // 7.)Playing  song through button 
 let indexOfMusicBeingPlayed = 0;
@@ -70,6 +76,12 @@ const pause = () => {
     showButton('.playing__play');
     audioPlayer.pause();
 }
+
+// audio playing seekBar
+const changeTheTime = ()=> {
+    audioPlayer.currentTime = getElement('.slider').value;
+    console.log("Ayushi");
+};
 
 const next = () => {
     playTrack(getNextSong());
@@ -122,4 +134,5 @@ document.querySelector(".playing__pause").addEventListener("click", pause);
 document.querySelector(".playing__play").addEventListener("click", play);
 document.querySelector(".playing__previous").addEventListener("click", prev);
 document.querySelector(".playing__next").addEventListener("click", next);
-document.querySelector(".")
+// document.querySelector(".playing__volume").addEventListener("click",)
+document.querySelector(".slider").addEventListener("change", changeTheTime);
