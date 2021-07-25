@@ -2,15 +2,16 @@ import Trending from "./model/Trending.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
 
-audioPlayer.volume=0.5;
-let currentVolume=audioPlayer.volume;
-let isPlaying=false;
+audioPlayer.volume = 0.5;
+let currentVolume = audioPlayer.volume;
+let isPlaying = false;
+let playBackRate=1.0;
 //2.) Creating new object
 const trending = new Trending();
 
 console.log(trending);
 
-    
+
 //3.) audio playing duration 
 audioPlayer.addEventListener('loadedmetadata', function() {
     console.log("Playing " + audioPlayer.src + ", for: " + audioPlayer.duration + "seconds.");
@@ -21,18 +22,19 @@ audioPlayer.addEventListener('loadedmetadata', function() {
 });
 
 // 4.)audio playing currentTime
- audioPlayer.addEventListener('timeupdate', (event) => {
+audioPlayer.addEventListener('timeupdate', (event) => {
+    audioPlayer.playbackRate=playBackRate;
     const currentTime = Math.floor(audioPlayer.currentTime);
     const duration = Math.floor(audioPlayer.duration);
-    console.log("Current Time ", currentTime, " and Duration ", duration);
-    let sec=currentTime;
+    // console.log("Current Time ", currentTime, " and Duration ", duration);
+    let sec = currentTime;
     sec = sec % 3600;
-    let min= Math.floor(sec/60);
-       sec=Math.floor(sec% 60);
-                if (sec.toString().length < 2) sec = "0" + sec;
-                if (min.toString().length < 2) min = "0" + min;
-    getElement('.audio_current_time').innerHTML =  min+ ":" +sec;
-               
+    let min = Math.floor(sec / 60);
+    sec = Math.floor(sec % 60);
+    if (sec.toString().length < 2) sec = "0" + sec;
+    if (min.toString().length < 2) min = "0" + min;
+    getElement('.audio_current_time').innerHTML = min + ":" + sec;
+
     //calculation for seekBar 
     getElement('.slider').min = audioPlayer.startTime;
     getElement('.slider').max = audioPlayer.duration;
@@ -50,7 +52,7 @@ audioPlayer.addEventListener('durationchange', function() {
     getElement('.slider').min = 0;
     getElement('.slider').max = audioPlayer.duration;
 
-},false);
+}, false);
 
 // 7.)Playing  song through button 
 let indexOfMusicBeingPlayed = 0;
@@ -63,53 +65,68 @@ const play = () => {
     } else {
         playTrack(trending.url[indexOfMusicBeingPlayed]);
     }
-    isPlaying=true;
+    isPlaying = true;
 }
 
 const pause = () => {
     hideButton('.playing__pause');
     showButton('.playing__play');
     audioPlayer.pause();
-    isPlaying=false;
+    isPlaying = false;
 }
 // Volume
-const onUnmuteClicked = () =>{
-     hideButton('.playing__unmute');
+const onUnmuteClicked = () => {
+    hideButton('.playing__unmute');
     showButton('.playing__mute');
-    audioPlayer.volume=0;
-    getElement(".volume_slider").value=0;
+    audioPlayer.volume = 0;
+    getElement(".volume_slider").value = 0;
     console.log("off");
 }
 // mute
-const onMuteClicked = () =>{
+const onMuteClicked = () => {
     hideButton('.playing__mute');
     showButton('.playing__unmute');
-    audioPlayer.volume=currentVolume;
-     getElement(".volume_slider").value=currentVolume*100;
+    audioPlayer.volume = currentVolume;
+    getElement(".volume_slider").value = currentVolume * 100;
     console.log("on");
-    
+
+}
+// Hover
+const showVolume = () => {
+    showButton('.volume_slider');
+}
+const hideVolume = () => {
+    setTimeout(() => {
+        hideButton('.volume_slider');
+    }, 2000);
 }
 
+
 // audio playing seekBar
-const changeTheTime = ()=> {
+const changeTheTime = () => {
     audioPlayer.currentTime = getElement('.slider').value;
-    console.log("Ayushi");
 };
-const changeVolume = ()=> {
-    audioPlayer.volume = getElement(".volume_slider").value/100;
-    currentVolume=audioPlayer.volume;
-    console.log(getElement(".volume_slider").value);
-    
+const changeVolume = () => {
+    audioPlayer.volume = getElement(".volume_slider").value / 100;
+    currentVolume = audioPlayer.volume;
 };
 
 
 const next = () => {
     playTrack(getNextSong());
+    hideButton('.playing__play');
+    showButton('.playing__pause');
 }
 const prev = () => {
     playTrack(getPreviousSong());
+    hideButton('.playing__play');
+    showButton('.playing__pause');
 }
 
+const changePlayerCurrTime = (delta) => {
+    audioPlayer.currentTime = audioPlayer.currentTime + delta;
+
+}
 
 const getNextSong = () => {
     indexOfMusicBeingPlayed = (indexOfMusicBeingPlayed + 1) % trending.url.length;
@@ -158,16 +175,28 @@ document.querySelector(".playing__next").addEventListener("click", next);
 document.querySelector(".playing__unmute").addEventListener("click", onUnmuteClicked);
 document.querySelector(".playing__mute").addEventListener("click", onMuteClicked);
 document.querySelector(".slider").addEventListener("change", changeTheTime);
-document.querySelector(".volume_slider").addEventListener("change",changeVolume);
-document.addEventListener("keypress",function (event) {
-      if (event.which === 32 || event.keyCode === 32) {
-          if(isPlaying)
-          {
-                pause();
-          }
-          else{
-              play();
-          }
-        
-      }
+document.querySelector(".volume_slider").addEventListener("change", changeVolume);
+document.querySelector(".volume__button").addEventListener("mouseover",showVolume);
+document.querySelector(".volume__button").addEventListener("mouseout",hideVolume);
+document.addEventListener("keypress", function(event) {
+    if (event.which === 32 || event.keyCode === 32) {
+        if (isPlaying) {
+            pause();
+        } else {
+            play();
+        }
+
+    }
+
+});
+document.addEventListener("keydown", function(event) {
+    if (event.which === 37 || event.keyCode === 37) {
+        changePlayerCurrTime(-10);
+
+    }
+    if (event.which === 39 || event.keyCode === 39) {
+        changePlayerCurrTime(10);
+
+    }
+
 });

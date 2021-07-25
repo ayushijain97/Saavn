@@ -195,7 +195,7 @@ body{
     position: fixed; 
 
 }
-.volume_slider{
+.volume_slider {
     position: absolute;
     transform: rotate(-90deg);
     transform-origin: 20% 40%;
