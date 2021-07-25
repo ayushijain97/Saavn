@@ -5,6 +5,7 @@ const audioPlayer = document.createElement("audio");
 audioPlayer.volume = 0.5;
 let currentVolume = audioPlayer.volume;
 let isPlaying = false;
+let playBackRate=1.0;
 //2.) Creating new object
 const trending = new Trending();
 
@@ -22,6 +23,7 @@ audioPlayer.addEventListener('loadedmetadata', function() {
 
 // 4.)audio playing currentTime
 audioPlayer.addEventListener('timeupdate', (event) => {
+    audioPlayer.playbackRate=playBackRate;
     const currentTime = Math.floor(audioPlayer.currentTime);
     const duration = Math.floor(audioPlayer.duration);
     // console.log("Current Time ", currentTime, " and Duration ", duration);
@@ -89,25 +91,36 @@ const onMuteClicked = () => {
     console.log("on");
 
 }
+// Hover
+const showVolume = () => {
+    showButton('.volume_slider');
+}
+const hideVolume = () => {
+    setTimeout(() => {
+        hideButton('.volume_slider');
+    }, 2000);
+}
+
 
 // audio playing seekBar
 const changeTheTime = () => {
     audioPlayer.currentTime = getElement('.slider').value;
-    console.log("Ayushi");
 };
 const changeVolume = () => {
     audioPlayer.volume = getElement(".volume_slider").value / 100;
     currentVolume = audioPlayer.volume;
-    console.log(getElement(".volume_slider").value);
-
 };
 
 
 const next = () => {
     playTrack(getNextSong());
+    hideButton('.playing__play');
+    showButton('.playing__pause');
 }
 const prev = () => {
     playTrack(getPreviousSong());
+    hideButton('.playing__play');
+    showButton('.playing__pause');
 }
 
 const changePlayerCurrTime = (delta) => {
@@ -163,6 +176,8 @@ document.querySelector(".playing__unmute").addEventListener("click", onUnmuteCli
 document.querySelector(".playing__mute").addEventListener("click", onMuteClicked);
 document.querySelector(".slider").addEventListener("change", changeTheTime);
 document.querySelector(".volume_slider").addEventListener("change", changeVolume);
+document.querySelector(".volume__button").addEventListener("mouseover",showVolume);
+document.querySelector(".volume__button").addEventListener("mouseout",hideVolume);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         if (isPlaying) {
