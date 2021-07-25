@@ -2,11 +2,15 @@ import Trending from "./model/Trending.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
 
+audioPlayer.volume=0.5;
+let currentVolume=audioPlayer.volume;
+let isPlaying=false;
 //2.) Creating new object
 const trending = new Trending();
+
 console.log(trending);
 
-
+    
 //3.) audio playing duration 
 audioPlayer.addEventListener('loadedmetadata', function() {
     console.log("Playing " + audioPlayer.src + ", for: " + audioPlayer.duration + "seconds.");
@@ -43,20 +47,10 @@ audioPlayer.onended = () => {
 // 6.)audio player duration 
 audioPlayer.addEventListener('durationchange', function() {
     console.log("Playing " + audioPlayer.src + ", for: " + audioPlayer.duration + "seconds.");
-            getElement('.slider').min = 0;
-            getElement('.slider').max = audioPlayer.duration;
+    getElement('.slider').min = 0;
+    getElement('.slider').max = audioPlayer.duration;
 
 },false);
-//volume changes
-// unction ChangeVolume() {
-//             var myVol = volumeRange.value;
-//             audio.volume = myVol;
-//             if (myVol == 0) {
-//                 audio.muted = true;
-//             } else {
-//                 audio.muted = false;
-//             }
-//         }
 
 // 7.)Playing  song through button 
 let indexOfMusicBeingPlayed = 0;
@@ -69,12 +63,31 @@ const play = () => {
     } else {
         playTrack(trending.url[indexOfMusicBeingPlayed]);
     }
+    isPlaying=true;
 }
 
 const pause = () => {
     hideButton('.playing__pause');
     showButton('.playing__play');
     audioPlayer.pause();
+    isPlaying=false;
+}
+// Volume
+const onUnmuteClicked = () =>{
+     hideButton('.playing__unmute');
+    showButton('.playing__mute');
+    audioPlayer.volume=0;
+    getElement(".volume_slider").value=0;
+    console.log("off");
+}
+// mute
+const onMuteClicked = () =>{
+    hideButton('.playing__mute');
+    showButton('.playing__unmute');
+    audioPlayer.volume=currentVolume;
+     getElement(".volume_slider").value=currentVolume*100;
+    console.log("on");
+    
 }
 
 // audio playing seekBar
@@ -82,6 +95,13 @@ const changeTheTime = ()=> {
     audioPlayer.currentTime = getElement('.slider').value;
     console.log("Ayushi");
 };
+const changeVolume = ()=> {
+    audioPlayer.volume = getElement(".volume_slider").value/100;
+    currentVolume=audioPlayer.volume;
+    console.log(getElement(".volume_slider").value);
+    
+};
+
 
 const next = () => {
     playTrack(getNextSong());
@@ -89,6 +109,7 @@ const next = () => {
 const prev = () => {
     playTrack(getPreviousSong());
 }
+
 
 const getNextSong = () => {
     indexOfMusicBeingPlayed = (indexOfMusicBeingPlayed + 1) % trending.url.length;
@@ -134,5 +155,19 @@ document.querySelector(".playing__pause").addEventListener("click", pause);
 document.querySelector(".playing__play").addEventListener("click", play);
 document.querySelector(".playing__previous").addEventListener("click", prev);
 document.querySelector(".playing__next").addEventListener("click", next);
-// document.querySelector(".playing__volume").addEventListener("click",)
+document.querySelector(".playing__unmute").addEventListener("click", onUnmuteClicked);
+document.querySelector(".playing__mute").addEventListener("click", onMuteClicked);
 document.querySelector(".slider").addEventListener("change", changeTheTime);
+document.querySelector(".volume_slider").addEventListener("change",changeVolume);
+document.addEventListener("keypress",function (event) {
+      if (event.which === 32 || event.keyCode === 32) {
+          if(isPlaying)
+          {
+                pause();
+          }
+          else{
+              play();
+          }
+        
+      }
+});
