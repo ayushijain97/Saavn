@@ -430,9 +430,9 @@
                 Playing tab
 
          -->
-          <div class="slideContainer">
-                <input type="range" min="0" step="any" class="slider" id="myRange">
-          </div>
+         <!-- slider -->
+         <input type="range" min="0" step="any" class="slider" value="0" id="myRange">
+         <!-- bottom tab -->
          <aside class="playing">
             
              <div class="playing_data">
@@ -453,20 +453,15 @@
              <ul class="playing_sound">
                  <li class="playing__space playing__timer"><span class="audio_current_time">0:00</span><span>/</span><span class="audio_duration">0:00</span></li>
                  <li class="playing__space playing__color playing__setting"><i class="fas fa-ellipsis-h fa-lg"></i></li>
-                 <li class="playing__space playing__color playing__volume"><i class="fas fa-volume-up fa-lg"></i></li>
+                 <input type="range" min="0" max="100" step="10" class="volume_slider" id="myRange">
+                 <li class="playing__space playing__color playing__mute" style="display: none;"><span class="material-icons volume-control">volume_offe04f</span></li>
+                 <li class="playing__space playing__color playing__unmute"><span class="material-icons volume-control">volume_upe050</span></li>
                  <li class="playing__space playing__color playing__resize"><i class="fas fa-expand-alt fa-2x"></i></li>
              </ul>
             </aside>  
     </div>
     <script src="https://kit.fontawesome.com/95b93b2bd7.js" crossorigin="anonymous"></script>
     <script src="index.js" type="module"></script>
-
-    <!-- <script>
-        function changeTheTime() {
-            console.log("Ayushi");
-            audioPlayer.currentTime = getElement('.slider').value;
-        }
-    </script> -->
     
 </body>
 </html>
