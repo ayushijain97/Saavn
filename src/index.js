@@ -102,7 +102,7 @@ const hideVolume = () => {
 }
 // DropDown Speed List 
 const playingSpeed = () => {
-   playBackRate= getElement(".dropDown").value;
+   playBackRate = getElement(".dropDown").value;
 }
 
 
@@ -182,7 +182,7 @@ document.querySelector(".slider").addEventListener("change", changeTheTime);
 document.querySelector(".volume_slider").addEventListener("change", changeVolume);
 document.querySelector(".volume__button").addEventListener("mouseover",showVolume);
 document.querySelector(".volume__button").addEventListener("mouseout",hideVolume);
-document.querySelector(".dropDown").addEventListener("change",playingSpeed);
+document.querySelector(".dropDown").addEventListener("change", playingSpeed);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         if (isPlaying) {
