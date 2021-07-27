@@ -6,7 +6,7 @@ audioPlayer.volume = 0.5;
 let currentVolume = audioPlayer.volume;
 let isPlaying = false;
 let playBackRate=1.0;
-let flag=true;
+let doShuffle=false;
 //2.) Creating new object
 const trending = new Trending();
 
@@ -89,29 +89,38 @@ const repeat = () => {
     if(!audioPlayer.loop)
     {
         audioPlayer.loop=true;
-        audioPlayer.play();
-        getElement(".playing__repeat").style.color="blue";
-        getElement(".repeat_icon_size").style.fontSize = "27px";
+        audioPlayer.play(); 
+        changeColor(".playing__repeat", "blue");
+        changeFontSize(".repeat_icon_size", "27px");
     }
     else{
         audioPlayer.loop=false;
         audioPlayer.play();
-        getElement(".playing__repeat").style.color="";
-        getElement(".repeat_icon_size").style.fontSize = "";
+        changeColor(".playing__repeat", "");
+        changeFontSize(".repeat_icon_size", ""); 
     }
    
 }
+const changeColor = (className , color) => {
+    getElement(className).style.color=color;
+}
+
+const changeFontSize = (className , fontSize) => {
+    getElement(className).style.fontSize=fontSize;
+} 
 
 const shuffle = () => {
-    if(flag){
-     console.log("shuffle");
-    trending.url= trending.url[Math.floor(Math.random()*trending.url.length)];
-     audioPlayer.play();
-     flag=false;
+    doShuffle = !doShuffle;
+    console.log("should shuffle?", doShuffle);
+    if(doShuffle){
+        changeColor(".playing__shuffle", "blue");
+        changeFontSize(".shuffle_icon_size", "27px");  
     }
     else{
-        flag=true;
+        changeColor(".playing__shuffle", "");
+        changeFontSize(".shuffle_icon_size", "");  
     }
+     
 }
 // Volume
 const onUnmuteClicked = () => {
@@ -163,7 +172,17 @@ const changePlayerCurrTime = (delta) => {
 }
 
 const getNextSong = () => {
-    indexOfMusicBeingPlayed = (indexOfMusicBeingPlayed + 1) % trending.url.length;
+    if(doShuffle){
+        let nextRandomValue=0;
+        while(
+            (nextRandomValue=Math.floor(Math.random()*trending.url.length)) === indexOfMusicBeingPlayed
+            ) {}
+        indexOfMusicBeingPlayed = nextRandomValue;
+    }
+    else{
+        indexOfMusicBeingPlayed = (indexOfMusicBeingPlayed + 1) % trending.url.length;
+    }
+    console.log("Playing ", indexOfMusicBeingPlayed);
     return trending.url[indexOfMusicBeingPlayed];
 }
 
