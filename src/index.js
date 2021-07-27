@@ -6,6 +6,7 @@ audioPlayer.volume = 0.5;
 let currentVolume = audioPlayer.volume;
 let isPlaying = false;
 let playBackRate=1.0;
+let flag=true;
 //2.) Creating new object
 const trending = new Trending();
 
@@ -74,6 +75,44 @@ const pause = () => {
     audioPlayer.pause();
     isPlaying = false;
 }
+const next = () => {
+    playTrack(getNextSong());
+    hideButton('.playing__play');
+    showButton('.playing__pause');
+}
+const prev = () => {
+    playTrack(getPreviousSong());
+    hideButton('.playing__play');
+    showButton('.playing__pause');
+}
+const repeat = () => {
+    if(!audioPlayer.loop)
+    {
+        audioPlayer.loop=true;
+        audioPlayer.play();
+        getElement(".playing__repeat").style.color="blue";
+        getElement(".repeat_icon_size").style.fontSize = "27px";
+    }
+    else{
+        audioPlayer.loop=false;
+        audioPlayer.play();
+        getElement(".playing__repeat").style.color="";
+        getElement(".repeat_icon_size").style.fontSize = "";
+    }
+   
+}
+
+const shuffle = () => {
+    if(flag){
+     console.log("shuffle");
+    trending.url= trending.url[Math.floor(Math.random()*trending.url.length)];
+     audioPlayer.play();
+     flag=false;
+    }
+    else{
+        flag=true;
+    }
+}
 // Volume
 const onUnmuteClicked = () => {
     hideButton('.playing__unmute');
@@ -82,6 +121,7 @@ const onUnmuteClicked = () => {
     getElement(".volume_slider").value = 0;
     console.log("off");
 }
+
 // mute
 const onMuteClicked = () => {
     hideButton('.playing__mute');
@@ -116,16 +156,6 @@ const changeVolume = () => {
 };
 
 
-const next = () => {
-    playTrack(getNextSong());
-    hideButton('.playing__play');
-    showButton('.playing__pause');
-}
-const prev = () => {
-    playTrack(getPreviousSong());
-    hideButton('.playing__play');
-    showButton('.playing__pause');
-}
 
 const changePlayerCurrTime = (delta) => {
     audioPlayer.currentTime = audioPlayer.currentTime + delta;
@@ -176,6 +206,8 @@ document.querySelector(".playing__pause").addEventListener("click", pause);
 document.querySelector(".playing__play").addEventListener("click", play);
 document.querySelector(".playing__previous").addEventListener("click", prev);
 document.querySelector(".playing__next").addEventListener("click", next);
+document.querySelector(".playing__repeat").addEventListener("click",repeat);
+document.querySelector(".playing__shuffle").addEventListener("click",shuffle);
 document.querySelector(".playing__unmute").addEventListener("click", onUnmuteClicked);
 document.querySelector(".playing__mute").addEventListener("click", onMuteClicked);
 document.querySelector(".slider").addEventListener("change", changeTheTime);
