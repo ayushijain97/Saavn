@@ -7,6 +7,7 @@ let currentVolume = audioPlayer.volume;
 let isPlaying = false;
 let playBackRate=1.0;
 let doShuffle=false;
+let indexArray=[];
 //2.) Creating new object
 const trending = new Trending();
 
@@ -170,14 +171,32 @@ const changePlayerCurrTime = (delta) => {
     audioPlayer.currentTime = audioPlayer.currentTime + delta;
 
 }
+const getRandomValue = () => {
+         let nextRandomValue=0;
+            while(
+                     (nextRandomValue=Math.floor(Math.random()*trending.url.length)) === indexOfMusicBeingPlayed) {}
+          return nextRandomValue;
+}
 
 const getNextSong = () => {
     if(doShuffle){
-        let nextRandomValue=0;
-        while(
-            (nextRandomValue=Math.floor(Math.random()*trending.url.length)) === indexOfMusicBeingPlayed
-            ) {}
-        indexOfMusicBeingPlayed = nextRandomValue;
+            
+            indexArray.push(indexOfMusicBeingPlayed);
+          indexOfMusicBeingPlayed = getRandomValue();
+
+        for(let i=0;i<indexArray.length;i++)
+        {
+            if(indexArray[i]===indexOfMusicBeingPlayed)
+            {
+                indexOfMusicBeingPlayed=getRandomValue();
+                continue;
+            }
+            if(indexArray.length===trending.url.length)
+            {
+                indexArray=[];
+                break;
+            }
+        }
     }
     else{
         indexOfMusicBeingPlayed = (indexOfMusicBeingPlayed + 1) % trending.url.length;
