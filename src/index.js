@@ -171,6 +171,7 @@ const changePlayerCurrTime = (delta) => {
     audioPlayer.currentTime = audioPlayer.currentTime + delta;
 
 }
+// shuffling the songs
 const getRandomValue = () => {
          let nextRandomValue=0;
             while(
