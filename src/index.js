@@ -1,5 +1,6 @@
 import Trending from "./model/Trending.js";
 import BackendApi from "./model/backendApi.js";
+import { renderLoader, clearLoader} from "./View/base.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
 
@@ -221,6 +222,8 @@ const showButton = (buttonCss) => {
 async function loadPlaylist (event) {
         const playlistURL = event.srcElement.getAttribute("value");
         console.log("Loading Playlist ", playlistURL);
+       renderLoader(document.querySelector(".playing__play"));
+        
         try {
             const proxyUrl= `http://localhost:8080/`;
            const res = await axios(
@@ -230,6 +233,7 @@ async function loadPlaylist (event) {
             console.log(res);
             trending.url = [];
             indexOfMusicBeingPlayed = 0;
+            clearLoader();
             res.data.songs.forEach((song) => trending.url.push(song.media_url));
             songsQueue = res.data.songs;
         }catch(err){

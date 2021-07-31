@@ -222,3 +222,27 @@ body{
     outline: none;  
     
 }
+.loader {
+  margin: 5rem auto;
+  text-align: center;
+  
+  /* transform-origin: 44% 50%; */
+  /* animation: rotate 1.5s infinite linear; */
+}
+.loader svg {
+  height: 5.5rem;
+  width: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  transform-origin: 44% 50%;
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
