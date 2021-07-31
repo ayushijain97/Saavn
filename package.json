@@ -16,5 +16,8 @@
     "url": "https://github.com/ayushijain97/Saavn/issues"
   },
   "homepage": "https://github.com/ayushijain97/Saavn#readme",
-  
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors-anywhere": "^0.4.4"
+  }
 }

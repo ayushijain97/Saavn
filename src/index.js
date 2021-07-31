@@ -1,4 +1,5 @@
 import Trending from "./model/Trending.js";
+import BackendApi from "./model/backendApi.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
 
@@ -10,8 +11,8 @@ let doShuffle=false;
 let indexArray=[];
 //2.) Creating new object
 const trending = new Trending();
-
-console.log(trending);
+const backendApi = new BackendApi() 
+let songsQueue = [];
 
 
 //3.) audio playing duration 
@@ -174,8 +175,7 @@ const changePlayerCurrTime = (delta) => {
 // shuffling the songs
 const getRandomValue = () => {
          let nextRandomValue=0;
-            while(
-                     (nextRandomValue=Math.floor(Math.random()*trending.url.length)) === indexOfMusicBeingPlayed) {}
+            while((nextRandomValue=Math.floor(Math.random()*trending.url.length)) === indexOfMusicBeingPlayed) {}
           return nextRandomValue;
 }
 
@@ -218,8 +218,34 @@ const showButton = (buttonCss) => {
     document.querySelector(buttonCss).style.display = 'block';
 }
 
+async function loadPlaylist (event) {
+        const playlistURL = event.srcElement.getAttribute("value");
+        console.log("Loading Playlist ", playlistURL);
+        try {
+            const proxyUrl= `http://localhost:8080/`;
+           const res = await axios(
+             proxyUrl +
+               `https://apg-saavn-api.herokuapp.com/playlist/?q=${playlistURL}`
+           );
+            console.log(res);
+            trending.url = [];
+            indexOfMusicBeingPlayed = 0;
+            res.data.songs.forEach((song) => trending.url.push(song.media_url));
+            songsQueue = res.data.songs;
+        }catch(err){
+            console.log(err);
+        }
+}
+
 const playTrack = (el) => {
     // setInterval(updateCurrTime, 1000);
+    console.log(songsQueue);
+    if(songsQueue) {
+        getElement(".playing_image").setAttribute('src', songsQueue[indexOfMusicBeingPlayed].image);
+        getElement(".playing_title").innerHTML = songsQueue[indexOfMusicBeingPlayed].song;
+        getElement(".playing_author").innerHTML = songsQueue[indexOfMusicBeingPlayed].singers;
+        
+    }
     audioPlayer.src = el;
     console.log(audioPlayer.duration);
     var playPromise = audioPlayer.play();
@@ -254,6 +280,7 @@ document.querySelector(".volume_slider").addEventListener("change", changeVolume
 document.querySelector(".volume__button").addEventListener("mouseover",showVolume);
 document.querySelector(".volume__button").addEventListener("mouseout",hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
+document.querySelector(".trending_title").addEventListener("click", loadPlaylist);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         if (isPlaying) {
