@@ -40,8 +40,8 @@ export  const limitTitleSize = (title, limit = 13) => {
 export const renderResult = (data) => {
   const markup = `
          <div class="trending_image">
-            <img src="https://c.saavncdn.com/725/Dagaa-Hindi-2021-20210709050408-150x150.jpg?bch=451848" alt=""/>
-            <h4 class="trending_title" value="${data.title}">${limitTitleSize(data.title)}</h4>
+            <img src="${data.img}" alt=""/>
+            <h4 class="trending_title" value="${data.href}">${limitTitleSize(data.title)}</h4>
             <p class="trending_author">Mohd. Danish, Himesh</p>
             </div>`;
             // document.querySelector(".trending-row").insertAdjacentHTML("beforeend", markup);
