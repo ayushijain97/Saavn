@@ -1,6 +1,8 @@
-// export const element = {
-
-// };
+export const element = {
+  searchResList: document.querySelector(".trending_data"),
+  searchList: document.querySelector(".row2"),
+  neeraj: document.querySelector(".neeraj"),
+};
 
 export const elementStrings = {
   loader: "loader",
@@ -20,6 +22,63 @@ export const clearLoader = () => {
   if (loader) {
     loader.parentElement.removeChild(loader);
   }
+}
+export  const limitTitleSize = (title, limit = 13) => {
+  const newTitle = [];
+  if (title.length > limit) {
+    title.split(" ").reduce((acc, cur) => {
+      if (acc + cur.length <= limit) {
+        newTitle.push(cur);
+      }
+      return acc + cur.length;
+    }, 0);
+    return `${newTitle.join(" ")}...`;
+  }
+  return title;
+};
+    
+export const renderResult = (data) => {
+  const markup = `
+         <div class="trending_image">
+            <img src="https://c.saavncdn.com/725/Dagaa-Hindi-2021-20210709050408-150x150.jpg?bch=451848" alt=""/>
+            <h4 class="trending_title" value="${data.title}">${limitTitleSize(data.title)}</h4>
+            <p class="trending_author">Mohd. Danish, Himesh</p>
+            </div>`;
+            // document.querySelector(".trending-row").insertAdjacentHTML("beforeend", markup);
+            return markup;
+  
+};
+export const renderPage = (data) => {
+      let firstRowData = data.slice(0,12);
+      // const markup1 = `
+      // <div class="trending-row">
+      //   ${firstRowData.forEach((data)=> {
+      //       renderResult(data);
+      //   })}
+      // </div>
+      //   `;
+        let insideDiv ='';
+        for(let i=0;i<firstRowData.length;i++) {
+          insideDiv+=renderResult(firstRowData[i]);
+        }
+        const markup1 = `
+          <div class="trending-row">
+            ${insideDiv}
+          </div>
+        `;
+      element.neeraj.insertAdjacentHTML("beforeend", markup1);
+      let secondRowData = data.slice(12,24)
+      insideDiv = "";
+      for (let i = 0; i < secondRowData.length; i++) {
+        insideDiv += renderResult(secondRowData[i]);
+      }
+      const markup2 = `
+          <div class="trending-row">
+            ${insideDiv}
+          </div>
+        `;
+        
+        element.neeraj.insertAdjacentHTML("beforeend", markup2);
 }
   
 

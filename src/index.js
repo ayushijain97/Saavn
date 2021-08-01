@@ -1,6 +1,6 @@
 import Trending from "./model/Trending.js";
 import BackendApi from "./model/backendApi.js";
-import { renderLoader, clearLoader} from "./View/base.js";
+import { renderLoader, clearLoader, renderPage, limitTitleSize, renderResult, element} from "./View/base.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
 
@@ -14,7 +14,7 @@ let indexArray=[];
 const trending = new Trending();
 const backendApi = new BackendApi() 
 let songsQueue = [];
-
+const proxyUrl = `http://localhost:8080/`;
 
 //3.) audio playing duration 
 audioPlayer.addEventListener('loadedmetadata', function() {
@@ -219,23 +219,44 @@ const showButton = (buttonCss) => {
     document.querySelector(buttonCss).style.display = 'block';
 }
 
+async function getHomePage () {
+  let data = null;
+  if (localStorage.getItem("homepage")) {
+      data = JSON.parse(localStorage.getItem("homepage"));
+  } else {
+    console.log("Getting data");
+    try {
+      const result = await axios(
+        proxyUrl + "https://ayushi-web-scrapper.herokuapp.com/data"
+      );
+      // console.log(result);
+       data = result.data;
+       localStorage.setItem("homepage", JSON.stringify(result.data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  // console.log(data[0].title);
+  renderPage(data);
+}
+
 async function loadPlaylist (event) {
         const playlistURL = event.srcElement.getAttribute("value");
         console.log("Loading Playlist ", playlistURL);
        renderLoader(document.querySelector(".playing__play"));
         
         try {
-            const proxyUrl= `http://localhost:8080/`;
-           const res = await axios(
-             proxyUrl +
-               `https://apg-saavn-api.herokuapp.com/playlist/?q=${playlistURL}`
-           );
-            console.log(res);
-            trending.url = [];
-            indexOfMusicBeingPlayed = 0;
-            clearLoader();
-            res.data.songs.forEach((song) => trending.url.push(song.media_url));
-            songsQueue = res.data.songs;
+          const res = await axios(
+            proxyUrl +
+              `https://apg-saavn-api.herokuapp.com/playlist/?q=${playlistURL}`
+          );
+          console.log(res);
+          trending.url = [];
+          indexOfMusicBeingPlayed = 0;
+          clearLoader();
+          res.data.songs.forEach((song) => trending.url.push(song.media_url));
+          songsQueue = res.data.songs;
+            
         }catch(err){
             console.log(err);
         }
@@ -246,7 +267,7 @@ const playTrack = (el) => {
     console.log(songsQueue);
     if(songsQueue) {
         getElement(".playing_image").setAttribute('src', songsQueue[indexOfMusicBeingPlayed].image);
-        getElement(".playing_title").innerHTML = songsQueue[indexOfMusicBeingPlayed].song;
+        getElement(".playing_title").innerHTML = limitTitleSize(songsQueue[indexOfMusicBeingPlayed].song);
         getElement(".playing_author").innerHTML = songsQueue[indexOfMusicBeingPlayed].singers;
         
     }
@@ -271,6 +292,7 @@ const getElement = (css) => {
     return document.querySelector(css);
 }
 
+window.addEventListener("load",getHomePage);
 document.querySelector(".playing__pause").addEventListener("click", pause);
 document.querySelector(".playing__play").addEventListener("click", play);
 document.querySelector(".playing__previous").addEventListener("click", prev);
@@ -284,7 +306,12 @@ document.querySelector(".volume_slider").addEventListener("change", changeVolume
 document.querySelector(".volume__button").addEventListener("mouseover",showVolume);
 document.querySelector(".volume__button").addEventListener("mouseout",hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
-document.querySelector(".trending_title").addEventListener("click", loadPlaylist);
+// element.searchResList.addEventListener("click", el=>{
+//     const id = el.target.closest(".trending__title");
+//     if(id){
+//         loadPlaylist();
+//     }
+// });
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         if (isPlaying) {

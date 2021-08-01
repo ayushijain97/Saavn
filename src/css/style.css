@@ -107,6 +107,9 @@ body{
     display:flex;    
     margin-bottom: 10px;
 }
+.trending-row{
+    display: flex;
+}
 .trending_image{
  padding-left: 10px;
  padding-right: 10px;
