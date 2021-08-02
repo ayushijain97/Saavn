@@ -1,3 +1,4 @@
+import { loadPlaylist } from "../index.js";
 export const element = {
   searchResList: document.querySelector(".trending_data"),
   searchList: document.querySelector(".row2"),
@@ -23,7 +24,7 @@ export const clearLoader = () => {
     loader.parentElement.removeChild(loader);
   }
 }
-export  const limitTitleSize = (title, limit = 13) => {
+export  const limitTitleSize = (title, limit = 17) => {
   const newTitle = [];
   if (title.length > limit) {
     title.split(" ").reduce((acc, cur) => {
@@ -40,11 +41,13 @@ export  const limitTitleSize = (title, limit = 13) => {
 export const renderResult = (data) => {
   const markup = `
          <div class="trending_image">
-            <img src="${data.img}" alt=""/>
-            <h4 class="trending_title" value="${data.href}">${limitTitleSize(data.title)}</h4>
-            <p class="trending_author">Mohd. Danish, Himesh</p>
+            <img src="${data.image}" alt="" class="trending_pic"/>
+            <h4 class="trending_title" value="${"https://www.jiosaavn.com/featured/romantic-hits-2020---hindi/ABiMGqjovSFuOxiEGmm6lQ"}" >${limitTitleSize(
+    data.song
+  )}</h4>
+            <p class="trending_author" >${limitTitleSize(data.singers)}</p>
             </div>`;
-            // document.querySelector(".trending-row").insertAdjacentHTML("beforeend", markup);
+            document.querySelector(".trending_title").addEventListener("click",loadPlaylist);
             return markup;
   
 };

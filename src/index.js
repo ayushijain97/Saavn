@@ -61,7 +61,7 @@ audioPlayer.addEventListener('durationchange', function() {
 // 7.)Playing  song through button 
 let indexOfMusicBeingPlayed = 0;
 
-const play = () => {
+export const play = () => {
     hideButton('.playing__play');
     showButton('.playing__pause');
     if (audioPlayer.src) {
@@ -220,46 +220,48 @@ const showButton = (buttonCss) => {
 }
 
 async function getHomePage () {
-  let data = null;
+  let details = null;
   if (localStorage.getItem("homepage")) {
-      data = JSON.parse(localStorage.getItem("homepage"));
+      details = JSON.parse(localStorage.getItem("homepage"));
   } else {
     console.log("Getting data");
     try {
       const result = await axios(
-        proxyUrl + "https://ayushi-web-scrapper.herokuapp.com/data"
+        // proxyUrl + "https://ayushi-web-scrapper.herokuapp.com/data"
+        proxyUrl +
+          "https://apg-saavn-api.herokuapp.com/playlist/?q=https://www.jiosaavn.com/featured/romantic-hits-2020---hindi/ABiMGqjovSFuOxiEGmm6lQ"
       );
-      // console.log(result);
-       data = result.data;
-       localStorage.setItem("homepage", JSON.stringify(result.data));
+    //   console.log(result);
+       details = result.data.songs;
+       localStorage.setItem("homepage", JSON.stringify(details));
     } catch (err) {
       console.log(err);
     }
   }
   // console.log(data[0].title);
-  renderPage(data);
+  console.log(details);
+  renderPage(details);
 }
 
-async function loadPlaylist (event) {
+export const loadPlaylist = async(event)=> {
         const playlistURL = event.srcElement.getAttribute("value");
         console.log("Loading Playlist ", playlistURL);
        renderLoader(document.querySelector(".playing__play"));
-        
-        try {
-          const res = await axios(
-            proxyUrl +
-              `https://apg-saavn-api.herokuapp.com/playlist/?q=${playlistURL}`
-          );
-          console.log(res);
-          trending.url = [];
-          indexOfMusicBeingPlayed = 0;
-          clearLoader();
-          res.data.songs.forEach((song) => trending.url.push(song.media_url));
-          songsQueue = res.data.songs;
-            
-        }catch(err){
-            console.log(err);
-        }
+       try {
+         const res = await axios(
+           proxyUrl +
+             `https://apg-saavn-api.herokuapp.com/playlist/?q=${playlistURL}`
+         );
+         console.log(res);
+         trending.url = [];
+         indexOfMusicBeingPlayed = 0;
+         clearLoader();
+         res.data.songs.forEach((song) => trending.url.push(song.media_url));
+         songsQueue = res.data.songs;
+           
+       }catch(err){
+           console.log(err);
+       }     
 }
 
 const playTrack = (el) => {
@@ -268,7 +270,8 @@ const playTrack = (el) => {
     if(songsQueue) {
         getElement(".playing_image").setAttribute('src', songsQueue[indexOfMusicBeingPlayed].image);
         getElement(".playing_title").innerHTML = limitTitleSize(songsQueue[indexOfMusicBeingPlayed].song);
-        getElement(".playing_author").innerHTML = songsQueue[indexOfMusicBeingPlayed].singers;
+        getElement(".playing_author").innerHTML =
+          limitTitleSize(songsQueue[indexOfMusicBeingPlayed].singers);
         
     }
     audioPlayer.src = el;
@@ -306,12 +309,7 @@ document.querySelector(".volume_slider").addEventListener("change", changeVolume
 document.querySelector(".volume__button").addEventListener("mouseover",showVolume);
 document.querySelector(".volume__button").addEventListener("mouseout",hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
-// element.searchResList.addEventListener("click", el=>{
-//     const id = el.target.closest(".trending__title");
-//     if(id){
-//         loadPlaylist();
-//     }
-// });
+document.querySelector(".trending_title").addEventListener("click",loadPlaylist);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         if (isPlaying) {
