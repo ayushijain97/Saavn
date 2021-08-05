@@ -228,11 +228,12 @@ async function getHomePage () {
     try {
       const result = await axios(
         // proxyUrl + "https://ayushi-web-scrapper.herokuapp.com/data"
-        proxyUrl +
-          "https://apg-saavn-api.herokuapp.com/playlist/?q=https://www.jiosaavn.com/featured/romantic-hits-2020---hindi/ABiMGqjovSFuOxiEGmm6lQ"
+        proxyUrl + "http://localhost:3000/metadata"
+        // proxyUrl +
+        //   "https://apg-saavn-api.herokuapp.com/playlist/?q=https://www.jiosaavn.com/featured/romantic-hits-2020---hindi/ABiMGqjovSFuOxiEGmm6lQ"
       );
     //   console.log(result);
-       details = result.data.songs;
+       details = result.data;
        localStorage.setItem("homepage", JSON.stringify(details));
     } catch (err) {
       console.log(err);

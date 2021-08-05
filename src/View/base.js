@@ -26,7 +26,7 @@ export const clearLoader = () => {
 }
 export  const limitTitleSize = (title, limit = 17) => {
   const newTitle = [];
-  if (title.length > limit) {
+  if (title && title.length > limit) {
     title.split(" ").reduce((acc, cur) => {
       if (acc + cur.length <= limit) {
         newTitle.push(cur);
@@ -42,12 +42,10 @@ export const renderResult = (data) => {
   const markup = `
          <div class="trending_image">
             <img src="${data.image}" alt="" class="trending_pic"/>
-            <h4 class="trending_title" value="${"https://www.jiosaavn.com/featured/romantic-hits-2020---hindi/ABiMGqjovSFuOxiEGmm6lQ"}" >${limitTitleSize(
-    data.song
-  )}</h4>
+            <h4 class="trending_title" value="${data.title}" >${limitTitleSize(data.title)}</h4>
             <p class="trending_author" >${limitTitleSize(data.singers)}</p>
             </div>`;
-            document.querySelector(".trending_title").addEventListener("click",loadPlaylist);
+            // document.querySelector(".trending_title").addEventListener("click",loadPlaylist);
             return markup;
   
 };
