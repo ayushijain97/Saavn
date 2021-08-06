@@ -6,7 +6,9 @@ export default class Trending{
                   "https://aac.saavncdn.com/481/6973d4d8177c6aa61bba9a8db0c4a911_320.mp4",
                   "https://aac.saavncdn.com/347/57c5400e920d5e949c36ec69042d8733_320.mp4"
                 ];
-        console.log(this.url);
     }    
 }
+
+
+
    

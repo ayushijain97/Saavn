@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="./css/style.css"/>
     <link rel="icon shortcut" type="image/x-icon" href="https://staticfe.saavn.com/web6/prod/dist/1626461415/_i/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <script src="https://kit.fontawesome.com/95b93b2bd7.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
 </head>
 <body>
     <div class="container">
@@ -46,11 +49,13 @@
         <section  class="trending">
             <h2>Trending Now</h2>
                 <div class="scrolling" >
-                    <div class="trending_data">
+                    <div class="trending_data row1">
+
+                        <div  class="neeraj"></div>
                         <!-- 1st View of trending songs -->
-                        <div class="trending_image">
+                        <!-- <div class="trending_image">
                             <img src="https://c.saavncdn.com/725/Dagaa-Hindi-2021-20210709050408-150x150.jpg?bch=451848" alt=""/>
-                            <h4 class="trending_title">Dagaa</h4>
+                            <h4 class="trending_title" value="https://www.jiosaavn.com/featured/dance-hits-2020---punjabi/6FTSwtvcl4jfemJ68FuXsA__">Dagaa</h4>
                             <p class="trending_author">Mohd. Danish, Himesh</p>
                         </div>
 
@@ -81,9 +86,9 @@
                             <img src="https://c.saavncdn.com/467/Chhor-Denge-Hindi-2021-20210204171001-150x150.jpg?bch=451848" alt=""/>
                             <h4 class="trending_title">Chhor Denge</h4>
                             <p class="trending_author">Sachet-Parampara</p>
-                        </div>
+                        </div> -->
                         <!-- 2nd View of trending songs -->
-                        <div class="trending_image">
+                        <!-- <div class="trending_image">
                             <img src="https://c.saavncdn.com/691/Baarish-Ki-Jaaye-Hindi-2021-20210325181900-150x150.jpg" alt=""/>
                             <h4 class="trending_title">Baarish Ki Jaaye</h4>
                             <p class="trending_author">B Praak</p>
@@ -117,14 +122,14 @@
                             <h4 class="trending_title">Teri Aankhon Mein</h4>
                             <p class="trending_author">Darshan Raval...</p>
                         </div>
-                    </div>
+                    </div> -->
 
 
                 <!-- Songs after  breaking line -->
 
                         <!-- 1st View of trending songs -->
-                    <div class="trending_data">
-                        <div class="trending_image">
+                     <div class="trending_data row2">
+                        <!-- <div class="trending_image">
                             <img src="https://c.saavncdn.com/959/Thoda-Thoda-Pyaar-Hindi-2021-20210212084501-150x150.jpg?bch=451848" alt=""/>
                             <h4 class="trending_title">Thoda Thoda Pyaar</h4>
                             <p class="trending_author">Stebin Ben</p>
@@ -157,10 +162,10 @@
                             <img src="https://c.saavncdn.com/345/Aur-Pyaar-Karna-Hai-Hindi-2021-20210303123611-150x150.jpg?bch=451850" alt=""/>
                             <h4 class="trending_title">Aur Pyaar Karna Hai</h4>
                             <p class="trending_author">Sachet-Parampara..</p>
-                        </div>
+                        </div> -->
 
                         <!-- 2nd View of trending songs -->
-                                        
+<!--                                         
                         <div class="trending_image">
                             <img src="https://c.saavncdn.com/318/Is-Tarah-Aashiqui-Ka-Hindi-2021-20210711143323-150x150.jpg" alt=""/>
                             <h4 class="trending_title">Is Tarah Aashiqui Ka</h4>
@@ -194,7 +199,7 @@
                             <img src="https://c.saavncdn.com/259/Nain-Bengali-Hindi-2021-20210714071001-150x150.jpg" alt=""/>
                             <h4 class="trending_title">Nain Bengali</h4>
                             <p class="trending_author">Guru Randhawa</p>
-                        </div>
+                        </div>  -->
 
                      </div>
             </div>      
@@ -422,8 +427,9 @@
         </div>
         
          <!-- queue -->
-        <div></div>
-
+         <div class="queue">
+             <h3 class="queue_title">Queue</h3>
+        </div>
 
         <!-- 
 
@@ -446,7 +452,7 @@
                  <li class="playing_song playing__repeat"><span class="material-icons repeat_icon_size">repeate8b8</span></li>
                  <li class="playing_song playing__previous"><i class="fas fa-step-backward fa-2x"></i></li>
                  <li class="playing_song playing__pause" style="display: none;"><i class="fas fa-pause fa-2x"></i></li>     
-                 <li class="playing_song playing__play"><i class="fas fa-play fa-2x"></i></li>
+                 <li class="playing_song playing__play"><i class="fas fa-play fa-2x play"></i></li>
                  <li class="playing_song playing__next"><i class="fas fa-step-forward fa-2x"></i></li>
                  <li class="playing_song playing__shuffle"><span class="material-icons shuffle_icon_size">shufflee043</span></li>     
              </ul>
@@ -475,8 +481,6 @@
              </ul>
         </aside>  
     </div>
-    <script src="https://kit.fontawesome.com/95b93b2bd7.js" crossorigin="anonymous"></script>
-    <script src="index.js" type="module"></script>
-    
+    <script src="index.js" type="module"></script> 
 </body>
 </html>
