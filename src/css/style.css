@@ -114,6 +114,7 @@ body{
  padding-left: 10px;
  padding-right: 10px;
  text-align: center;
+ position: relative;
 }
 .trending_pic{
     width: 150px;
@@ -257,17 +258,18 @@ body{
   }
 }
 /* queue */
-.queue{
+.queue {
     border: 1px solid  #e9e9e9;
     border-radius: 10px;
     background-color:rgb(246, 246, 246);
-    margin-left: 1600px;
+    margin-left: 1590px;
     width: 100px;
     height: 700px;
     position: fixed;
-    margin-top: 130px;   
+    margin-top: 130px; 
+    overflow-y: scroll;  
 }
-.queue_title{
+.queue_title {
     margin: 0;
     padding: 10px;
     border-bottom: 1px solid  #e9e9e9;
@@ -275,10 +277,34 @@ body{
     color: rgb(61, 59, 59);
 
 }
-.queue_image{
+.queue_image {
     width: 50px;
     margin-left: 17px;
     margin-right: 20px;
     margin-top: 20px;
     border-radius: 10px;
+}
+.songs_queue {
+    list-style-type:none;
+    padding: 0;
+
+}
+
+.trending_image:hover .trending_pic {
+  opacity: 0.3;
+}
+
+.trending_image:hover .playIcon {
+  opacity: 1;
+}
+
+.playIcon {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
 }
