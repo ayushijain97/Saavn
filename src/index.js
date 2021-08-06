@@ -225,7 +225,7 @@ async function getHomePage() {
         console.log("Getting data");
         try {
             const result = await axios(
-                proxyUrl + "https://ayushi-web-scrapper.herokuapp.com/metadata"
+                 "https://ayushi-web-scrapper.herokuapp.com/metadata"
             );
             //   console.log(result);
             details = result.data;
@@ -245,7 +245,7 @@ export const loadPlaylist = async (event) => {
     renderLoader(document.querySelector(".playing__play"));
     try {
         const res = await axios(
-            proxyUrl +
+            // proxyUrl +
             `https://ayushi-web-scrapper.herokuapp.com/playlist/${playlistID}`
         );
         console.log(res);
