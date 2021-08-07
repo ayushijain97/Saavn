@@ -157,6 +157,7 @@ body{
 }
 .playing_data{
   display: flex;
+  width: 390px;
 }
 .playing_title{
     margin-bottom: 0;
@@ -170,8 +171,8 @@ body{
     justify-content: center; 
     align-items: center;
     margin-right: auto;
-    margin-left: 680px;
-    position: fixed;
+    margin-left: 18%;
+    /* position: fixed; */
     list-style-type:none;
 }
 .playing_song{
@@ -307,4 +308,19 @@ body{
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     text-align: center;
+}
+
+.toast-bottom-center {
+  bottom: 80px!important;
+  right: 0;
+  width: 100%;
+}
+
+.toast-info {
+  background-color: #023a49 !important;
+}
+
+
+#toast-container > div {
+    opacity: 1!important;
 }

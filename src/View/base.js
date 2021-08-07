@@ -31,6 +31,7 @@ export const clearQueue = () => {
   const songsQueueList = document.querySelector(".songs_queue");
   if (songsQueueList) 
   {
+    console.log("clearing queue");
     songsQueueList.remove();
   }
 };
@@ -120,7 +121,7 @@ export const renderSongsQueue= (queue) => {
           <ol class="songs_queue">
             ${songsListHTML}
           </ol>`;
-    console.log(markup);
+    // console.log(markup);
     element.songsQueueHeader.insertAdjacentHTML("afterend", markup);
 
 }

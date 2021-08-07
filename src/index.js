@@ -217,32 +217,47 @@ const showButton = (buttonCss) => {
     document.querySelector(buttonCss).style.display = 'block';
 }
 
+function configureToastr() {
+    toastr.options = {
+      positionClass: "toast-bottom-center",
+      showDuration: "300"
+    };
+}
+
 async function getHomePage() {
-    let details = null;
-    if (localStorage.getItem("homepage")) {
-        details = JSON.parse(localStorage.getItem("homepage"));
-    } else {
-        console.log("Getting data");
-        try {
-            const result = await axios(
-                 "https://ayushi-web-scrapper.herokuapp.com/metadata"
-            );
-            //   console.log(result);
-            details = result.data;
-            localStorage.setItem("homepage", JSON.stringify(details));
-        } catch (err) {
-            console.log(err);
-        }
+  // Display an info toast with no title
+  configureToastr();
+  let details = null;
+  if (localStorage.getItem("homepage")) {
+    details = JSON.parse(localStorage.getItem("homepage"));
+  } else {
+    console.log("Getting data");
+    try {
+      const result = await axios(
+        "https://ayushi-web-scrapper.herokuapp.com/metadata"
+      );
+      //   console.log(result);
+      details = result.data;
+      localStorage.setItem("homepage", JSON.stringify(details));
+    } catch (err) {
+      console.log(err);
     }
-    // console.log(data[0].title);
-    console.log(details);
-    renderPage(details);
+  }
+  // console.log(data[0].title);
+  // console.log(details);
+  renderPage(details);
 }
 
 export const loadPlaylist = async (event) => {
     const playlistID = event.srcElement.getAttribute("value");
     console.log("Loading Playlist ", playlistID);
-    renderLoader(document.querySelector(".playing__play"));
+    
+    if(isPlaying) {
+        renderLoader(document.querySelector(".playing__pause"));
+    }
+    else {
+        renderLoader(document.querySelector(".playing__play"));
+    }
     try {
         const res = await axios(
             // proxyUrl +
@@ -253,6 +268,7 @@ export const loadPlaylist = async (event) => {
         indexOfMusicBeingPlayed = 0;
         clearLoader();
         clearQueue();
+        songsQueue=[];
         if (res.data.songs) {
             res.data.songs.forEach((song) => trending.url.push(song.media_url));
             songsQueue = res.data.songs;
@@ -260,7 +276,10 @@ export const loadPlaylist = async (event) => {
             trending.url.push(res.data.media_url);
             songsQueue.push(res.data);
         }
-            renderSongsQueue(songsQueue);
+        renderSongsQueue(songsQueue);
+        toastr.info(songsQueue.length + " Song added into the queue...!");
+        indexOfMusicBeingPlayed=0;
+        next();
     } catch (err) {
         console.log(err);
     }
@@ -317,6 +336,7 @@ document.querySelector(".volume__button").addEventListener("mouseout", hideVolum
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
+        event.preventDefault();
         if (isPlaying) {
             pause();
         } else {
