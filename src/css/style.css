@@ -269,6 +269,7 @@ body{
     position: fixed;
     margin-top: 130px; 
     overflow-y: scroll;  
+    -webkit-perspective: 1000;
 }
 .queue_title {
     margin: 0;
@@ -284,6 +285,10 @@ body{
     margin-right: 20px;
     margin-top: 20px;
     border-radius: 10px;
+}
+.queue_image:hover{
+    /* border: 1px solid blueviolet; */
+    transform: rotate(340deg) translateZ(20px);
 }
 .songs_queue {
     list-style-type:none;

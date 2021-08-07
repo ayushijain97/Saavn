@@ -1,4 +1,4 @@
-import { loadPlaylist } from "../index.js";
+import { loadPlaylist, playThisSong } from "../index.js";
 // window.loadPlaylist=loadPlaylist;
 export const element = {
   searchResList: document.querySelector(".trending_data"),
@@ -64,10 +64,10 @@ export const renderResult = (data) => {
             return markup;
   
 };
-export const renderSongsInQueue = (data) => {
+export const renderSongsInQueue = (data,index) => {
   const markup = `
           <li>
-             <img src="${data.image}" alt="" class="queue_image"/>
+             <img src="${data.image}" alt="" class="queue_image" value="${index}"/>
           </li>
              `;
         
@@ -112,9 +112,9 @@ export const renderPage = (data) => {
 }
 export const renderSongsQueue= (queue) => {
   let songsListHTML='';
-   queue.forEach(el => {
+   queue.forEach((el,index) => {
      if(el.image){
-      songsListHTML+=renderSongsInQueue(el);
+      songsListHTML+=renderSongsInQueue(el,index);
      }
    });
    const markup = `
@@ -123,6 +123,15 @@ export const renderSongsQueue= (queue) => {
           </ol>`;
     // console.log(markup);
     element.songsQueueHeader.insertAdjacentHTML("afterend", markup);
+    var anchors = document.querySelectorAll(".queue_image");
+
+    for (var z = 0; z < anchors.length; z++) {
+      var elem = anchors[z];
+      elem.onclick = function () {
+        return playThisSong(event);
+      };
+    }
+
 
 }
   
