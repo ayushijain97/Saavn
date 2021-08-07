@@ -67,8 +67,7 @@ audioPlayer.addEventListener('durationchange', function() {
 let indexOfMusicBeingPlayed = 0;
 
 export const play = () => {
-    hideButton('.playing__play');
-    showButton('.playing__pause');
+    handlePlayPauseIcon();
     if (audioPlayer.src) {
         audioPlayer.play();
     } else {
@@ -78,11 +77,23 @@ export const play = () => {
 }
 
 const pause = () => {
-    hideButton('.playing__pause');
-    showButton('.playing__play');
+    handlePlayPauseIcon();
     audioPlayer.pause();
     isPlaying = false;
 }
+
+const handlePlayPauseIcon = () => {
+    if(isPlaying) {
+        // Means currently music was playing and somebody clicked pause.
+        hideButton(".playing__pause");
+        showButton(".playing__play");
+    } else {
+        // Means currently no music is being played and somebody clicked on Play button
+        showButton(".playing__pause");
+        hideButton(".playing__play");
+    }
+}
+
 const next = () => {
     playTrack(getNextSong());
     hideButton('.playing__play');
@@ -182,6 +193,12 @@ const getRandomValue = () => {
     return nextRandomValue;
 }
 
+export const playThisSong = (event) => {
+    const songIndex = event.srcElement.getAttribute("value");
+    indexOfMusicBeingPlayed=songIndex;
+        playTrack(trending.url[songIndex]);
+}
+
 const getNextSong = () => {
     if (doShuffle) {
 
@@ -228,8 +245,8 @@ async function getHomePage() {
   // Display an info toast with no title
   configureToastr();
   let details = null;
-  if (localStorage.getItem("homepage")) {
-    details = JSON.parse(localStorage.getItem("homepage"));
+  if (sessionStorage.getItem("homepage")) {
+    details = JSON.parse(sessionStorage.getItem("homepage"));
   } else {
     console.log("Getting data");
     try {
@@ -238,7 +255,7 @@ async function getHomePage() {
       );
       //   console.log(result);
       details = result.data;
-      localStorage.setItem("homepage", JSON.stringify(details));
+      sessionStorage.setItem("homepage", JSON.stringify(details));
     } catch (err) {
       console.log(err);
     }
@@ -287,6 +304,7 @@ export const loadPlaylist = async (event) => {
 
 const playTrack = (el) => {
     // setInterval(updateCurrTime, 1000);
+    isPlaying = true;
     console.log(songsQueue);
     if (songsQueue) {
 
