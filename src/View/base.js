@@ -13,7 +13,7 @@ export const elementStrings = {
 
 export const renderLoader = (parent) => {
   const loader = `
-  <div class="${elementStrings.loader}">
+  <div class="${elementStrings.loader} play_size">
    <svg>
    <use href="image/icons.svg#icon-cw">
   </svg>

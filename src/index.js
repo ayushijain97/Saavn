@@ -73,12 +73,14 @@ export const play = () => {
     } else {
         playTrack(trending.url[indexOfMusicBeingPlayed]);
     }
+    document.querySelector(".playing_image").classList.add("rotating_image");
     isPlaying = true;
 }
 
 const pause = () => {
     handlePlayPauseIcon();
     audioPlayer.pause();
+    document.querySelector(".playing_image").classList.remove("rotating_image");
     isPlaying = false;
 }
 
@@ -304,7 +306,9 @@ export const loadPlaylist = async (event) => {
 
 const playTrack = (el) => {
     // setInterval(updateCurrTime, 1000);
+    handlePlayPauseIcon();
     isPlaying = true;
+    document.querySelector(".playing_image").classList.add("rotating_image");
     console.log(songsQueue);
     if (songsQueue) {
 
