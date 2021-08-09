@@ -50,8 +50,22 @@ export  const limitTitleSize = (title, limit = 15) => {
   }
   return title;
 };
-    
-export const renderResult = (data) => {
+const numFormatter = (data)=>{
+  if(typeof data === "number"){
+        if( data > 999 && data < 1000000){
+            return (data/1000).toFixed(1) + 'K' + " Fans"; 
+        }else if(data > 1000000){
+            return (data/1000000).toFixed(1) + 'M' + " Fans"; 
+        }else if(data < 900){
+            return data + " Fans"; 
+        }
+    }
+   else if(typeof data === "string"){
+          return limitTitleSize(data);
+    }
+
+};
+ const renderResult = (data) => {
   const markup = `
          <div class="trending_image">
             <img src="${data.image}" alt="" class="trending_pic"/>
@@ -59,12 +73,13 @@ export const renderResult = (data) => {
                <i class="fas fa-play fa-2x play playButton" value="${data.playlistID}" ></i>
              </div>
             <h4 class="trending_title">${limitTitleSize(data.title)}</h4>
-            <p class="trending_author" >${limitTitleSize(data.singers)}</p>
+            <p class="trending_author" >${numFormatter(data.singers)}</p>
             </div>`;
             return markup;
   
 };
-export const renderSongsInQueue = (data,index) => {
+
+const renderSongsInQueue = (data,index) => {
   const markup = `
           <li>
              <img src="${data.image}" alt="" class="queue_image" value="${index}"/>

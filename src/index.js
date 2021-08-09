@@ -1,5 +1,4 @@
 import Trending from "./model/Trending.js";
-import BackendApi from "./model/backendApi.js";
 import {
   renderLoader,
   clearLoader,
@@ -323,24 +322,25 @@ const playTrack = (el) => {
             songsQueue[indexOfMusicBeingPlayed].singers
         );
     }
-audioPlayer.src = el;
-console.log(audioPlayer.duration);
-var playPromise = audioPlayer.play();
-if (playPromise !== undefined) {
-    playPromise.then(_ => {
-            // Automatic playback started!
-            // Show playing UI.
-        })
-        .catch(error => {
-            // Auto-play was prevented
-            // Show paused UI.
-        });
-}
+    audioPlayer.src = el;
+    console.log(audioPlayer.duration);
+    var playPromise = audioPlayer.play();
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+                // Automatic playback started!
+                // Show playing UI.
+            })
+            .catch(error => {
+                // Auto-play was prevented
+                // Show paused UI.
+            });
+    }
 }
 
 const getElement = (css) => {
     return document.querySelector(css);
 }
+
 
 window.addEventListener("load", getHomePage);
 document.querySelector(".playing__pause").addEventListener("click", pause);
@@ -356,6 +356,8 @@ document.querySelector(".volume_slider").addEventListener("change", changeVolume
 document.querySelector(".volume__button").addEventListener("mouseover", showVolume);
 document.querySelector(".volume__button").addEventListener("mouseout", hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
+document.querySelector(".dropDown").addEventListener("change", playingSpeed);
+
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         event.preventDefault();
