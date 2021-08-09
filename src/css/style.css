@@ -109,6 +109,7 @@ body{
 }
 .trending-row{
     display: flex;
+    margin-bottom: 15px;
 }
 .trending_image{
  padding-left: 10px;
@@ -126,11 +127,16 @@ body{
 }
 .trending_author{
     margin-top: 5px;
+    font-size: 14px;
+    color: gray;
 }
 
 /* Radio features */
 .radio_image{
     border-radius: 100%;
+}
+.radioSection{
+    margin-top: 60px;
 }
 
 /* 
