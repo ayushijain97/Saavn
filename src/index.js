@@ -1,4 +1,5 @@
 import Trending from "./model/Trending.js";
+
 import {
   renderLoader,
   clearLoader,
@@ -279,7 +280,7 @@ export const loadPlaylist = async (event) => {
     try {
         const res = await axios(
             // proxyUrl +
-            `https://ayushi-web-scrapper.herokuapp.com/playlist/${playlistID}`
+             `https://ayushi-web-scrapper.herokuapp.com/playlist/${playlistID}`
         );
         console.log(res);
         trending.url = [];
@@ -302,6 +303,7 @@ export const loadPlaylist = async (event) => {
         console.log(err);
     }
 }
+
 
 const playTrack = (el) => {
     // setInterval(updateCurrTime, 1000);
@@ -337,6 +339,26 @@ const playTrack = (el) => {
     }
 }
 
+
+const downloadSong = () => {
+    var songURL = proxyUrl + trending.url[indexOfMusicBeingPlayed];
+    fetch(songURL)
+      .then((resp) => resp.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        // the filename you want
+        a.download = "mySong.mp4";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => alert("oh no!"));
+}
+
+
 const getElement = (css) => {
     return document.querySelector(css);
 }
@@ -356,8 +378,7 @@ document.querySelector(".volume_slider").addEventListener("change", changeVolume
 document.querySelector(".volume__button").addEventListener("mouseover", showVolume);
 document.querySelector(".volume__button").addEventListener("mouseout", hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
-document.querySelector(".dropDown").addEventListener("change", playingSpeed);
-
+document.querySelector(".download__song").addEventListener("click", downloadSong);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         event.preventDefault();
