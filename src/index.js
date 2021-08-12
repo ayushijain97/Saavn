@@ -358,6 +358,10 @@ const downloadSong = () => {
       .catch(() => alert("oh no!"));
 }
 
+const searchSong = () =>{
+    alert("oops");
+}
+
 
 const getElement = (css) => {
     return document.querySelector(css);
@@ -379,6 +383,7 @@ document.querySelector(".volume__button").addEventListener("mouseover", showVolu
 document.querySelector(".volume__button").addEventListener("mouseout", hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
 document.querySelector(".download__song").addEventListener("click", downloadSong);
+document.querySelector(".search").addEventListener("click",searchSong);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         event.preventDefault();
