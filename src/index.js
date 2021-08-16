@@ -359,7 +359,12 @@ const downloadSong = () => {
 }
 
 const searchSong = () =>{
-    alert("oops");
+    document.querySelector(".search").style.display = "none";
+    document.querySelector(".searchSong").style.display = "flex";
+    document.querySelector(".cross").addEventListener("click", () => {
+      document.querySelector(".searchSong").style.display = "none";
+      document.querySelector(".search").style.display = "flex";
+    });
 }
 
 
