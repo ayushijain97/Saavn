@@ -247,6 +247,7 @@ async function getHomePage() {
   // Display an info toast with no title
   configureToastr();
   let details = null;
+    renderLoader(document.querySelector(".trending_data"));
   if (sessionStorage.getItem("homepage")) {
     details = JSON.parse(sessionStorage.getItem("homepage"));
   } else {
@@ -262,9 +263,8 @@ async function getHomePage() {
       console.log(err);
     }
   }
-  // console.log(data[0].title);
-  // console.log(details);
-  renderPage(details);
+    clearLoader();
+    renderPage(details);
 }
 
 export const loadPlaylist = async (event) => {
