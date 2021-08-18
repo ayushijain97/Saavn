@@ -396,6 +396,26 @@ body{
     opacity: 1!important;
 }
 
+.songsLibrary_details{
+    display: flex;
+}
+.songsLibrary__image{ 
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+.songsLibrary__title{
+    justify-content: space-between;
+}
+.songsLibrary__author{
+    justify-content: space-between;
+}
+.songsLibrary__duration{
+    justify-content: flex-end;
+}
+
+
+
 
 @media all and (max-width: 1440px) and (min-width: 1200px ){
     .queue{
