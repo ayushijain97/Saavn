@@ -5,11 +5,17 @@ export const element = {
   searchList: document.querySelector(".row2"),
   neeraj: document.querySelector(".neeraj"),
   songsQueueHeader: document.querySelector(".queue_title"),
+  inputField: document.querySelector(".search_text"),
 };
 
 export const elementStrings = {
   loader: "loader",
 };
+export const clearInput = () => {
+   if (element.inputField.value) {
+     element.inputField.value = "";
+   }
+}
 
 export const renderLoader = (parent) => {
   const loader = `
@@ -75,22 +81,28 @@ const numFormatter = (data)=>{
             <h4 class="trending_title">${limitTitleSize(data.title)}</h4>
             <p class="trending_author" >${numFormatter(data.singers)}</p>
             </div>`;
-            return markup;
+        return markup;
   
 };
-
-const renderSongsInQueue = (data,index) => {
+const renderSongsInnQueue = (data, index) => {
   const markup = `
           <li>
-             <img src="${data.image}" alt="" class="queue_image" value="${index}"/>
+            <div class="playing_data">
+                <img src="${
+                  data.image
+                }" alt="" class="queue_image" value="${index}"/>
+                <div class="Queue_Details">
+                      <h4 class="queue_song">${limitTitleSize(data.song)}</h4>
+                      <span> <p class="queue_author">${limitTitleSize(
+                        data.singers
+                      )}</p></span>
+                </div>
+            </div>
           </li>
              `;
-        
+
   return markup;
-}
-
-
-
+};
 export const renderPage = (data) => {
       let firstRowData = data.slice(0,12);
       let insideDiv ='';
@@ -129,7 +141,7 @@ export const renderSongsQueue= (queue) => {
   let songsListHTML='';
    queue.forEach((el,index) => {
      if(el.image){
-      songsListHTML+=renderSongsInQueue(el,index);
+      songsListHTML+=renderSongsInnQueue(el,index);
      }
    });
    const markup = `
@@ -146,8 +158,5 @@ export const renderSongsQueue= (queue) => {
         return playThisSong(event);
       };
     }
-
-
 }
   
-

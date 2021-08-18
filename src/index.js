@@ -7,6 +7,7 @@ import {
   limitTitleSize,
   renderSongsQueue,
   clearQueue,
+  clearInput,
 } from "./View/base.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
@@ -160,7 +161,7 @@ const onMuteClicked = () => {
 }
 // Hover
 const showVolume = () => {
-    showButton('.volume_slider');
+   document.querySelector(".volume_slider").style.display = "flex";
 }
 const hideVolume = () => {
     setTimeout(() => {
@@ -365,8 +366,17 @@ const searchSong = () =>{
       document.querySelector(".searchSong").style.display = "none";
       document.querySelector(".search").style.display = "flex";
     });
+    document.querySelector(".clear__icon").addEventListener("click", () => {
+            clearInput();
+    });
 }
 
+const toggleQueueClass = () => {
+      getElement(".queue").style.transform= "translatex(-300px)";  
+}
+const toggleClass = () => {
+   getElement(".queue").style.transform = "none";
+};
 
 const getElement = (css) => {
     return document.querySelector(css);
@@ -389,6 +399,10 @@ document.querySelector(".volume__button").addEventListener("mouseout", hideVolum
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
 document.querySelector(".download__song").addEventListener("click", downloadSong);
 document.querySelector(".search").addEventListener("click",searchSong);
+document.querySelector(".queue").addEventListener("mouseover",toggleQueueClass);
+document
+  .querySelector(".queue")
+  .addEventListener("mouseout", toggleClass);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         event.preventDefault();
