@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,500;0,700;1,400&display=swap');
 body{
     margin: 0;
     font-family: Lato,sans-serif;
@@ -71,37 +72,36 @@ body{
     border: 1px solid #e9e9e9;
     background-color: white;
     border-radius: 30px;
+    position: relative;
 }
 .search_text{
     width: 1000px;
-    height:20px;
-    border: 1px;
-    outline:none;  
+    border: 1px; 
+    outline: none;
+    font-size: 17px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .icons{
     /* display: none;   */
-    position: absolute;
-   
+    width: 5%;
 }
 .search__icons{
      width: 20px;
      height: 20px;
      padding-right: 5px;
-     margin-right: 1050px;
+     left: 0;
      align-items: center;
      justify-content: flex-start;
 }
 .cross{
-    position: absolute;
-    margin-left: 1070px;
+    width: 5%;
 }
 .cross__icon{
     margin-right: 2px;
 }
 .clear__icon{
     padding: 5px;
-    position: absolute;
-    margin-left: 1000px;
+    
 }
  /*
 *
@@ -227,6 +227,13 @@ body{
 .playing_author{
     margin-top: 5px;
 }
+.queue_song{
+    margin-bottom: 0;
+}
+.queue_author{
+    margin-top: 5px;
+}
+
 /* Icons part */
 .playing_icons{
     display: flex;
@@ -323,12 +330,13 @@ body{
     border-radius: 10px;
     background-color:rgb(246, 246, 246);
     margin-left: 1590px;
-    width: 100px;
+    width: 600px;
     height: 700px;
     position: fixed;
     margin-top: 130px; 
     overflow-y: scroll;  
     -webkit-perspective: 1000;
+    transition: all .5s ease-in-out;
 }
 .queue_title {
     margin: 0;
@@ -336,7 +344,6 @@ body{
     border-bottom: 1px solid  #e9e9e9;
     padding-bottom: 10px;
     color: rgb(61, 59, 59);
-
 }
 .queue_image {
     width: 50px;
