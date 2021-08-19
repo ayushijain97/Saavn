@@ -371,28 +371,21 @@ const searchInputField = (e) => {
   document.querySelector(".clear__icon").addEventListener("click", () => {
     clearInput();
   });
-//   document.addEventListener("keypress", function(event) {
-//     if (event.which === 32 || event.keyCode === 32) {
-    //         event.preventDefault();
-
- //             if(query)
-//    {
-//        const res = await axios(
-//          proxyUrl +
-//          `http://localhost:3000/playlist/${query}`
-//        );
-//        console.log("this query has these songs",res.length,"songs are",res);
-
-//    }
-    //         } else {
-    //             play();
-    //         }
-
-//        }
-
-//      });
-//    const query = element.inputField.value;
-//    
+  document.addEventListener("keypress", async function(event) {
+    if (event.which === 13 || event.keyCode === 13) {
+            event.preventDefault();
+           
+   const query = element.inputField.value;
+     if(query)
+        {
+            const res = await axios(
+                `https://ayushi-web-scrapper.herokuapp.com/music/search/${query}`
+            );
+            console.log("this query has songs",res.data);
+                clearInput();
+        } 
+    }
+  });
 };
 
 const toggleQueueClass = () => {
