@@ -8,6 +8,7 @@ import {
   renderSongsQueue,
   clearQueue,
   clearInput,
+  element
 } from "./View/base.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
@@ -359,17 +360,40 @@ const downloadSong = () => {
       .catch(() => alert("oh no!"));
 }
 
-const searchSong = () =>{
-    document.querySelector(".search").style.display = "none";
-    document.querySelector(".searchSong").style.display = "flex";
-    document.querySelector(".cross").addEventListener("click", () => {
-      document.querySelector(".searchSong").style.display = "none";
-      document.querySelector(".search").style.display = "flex";
-    });
-    document.querySelector(".clear__icon").addEventListener("click", () => {
-            clearInput();
-    });
-}
+const searchInputField = (e) => {
+  // switching between search bar
+  document.querySelector(".search").style.display = "none";
+  document.querySelector(".searchSong").style.display = "flex";
+  document.querySelector(".cross").addEventListener("click", () => {
+    document.querySelector(".searchSong").style.display = "none";
+    document.querySelector(".search").style.display = "flex";
+  });
+  document.querySelector(".clear__icon").addEventListener("click", () => {
+    clearInput();
+  });
+//   document.addEventListener("keypress", function(event) {
+//     if (event.which === 32 || event.keyCode === 32) {
+    //         event.preventDefault();
+
+ //             if(query)
+//    {
+//        const res = await axios(
+//          proxyUrl +
+//          `http://localhost:3000/playlist/${query}`
+//        );
+//        console.log("this query has these songs",res.length,"songs are",res);
+
+//    }
+    //         } else {
+    //             play();
+    //         }
+
+//        }
+
+//      });
+//    const query = element.inputField.value;
+//    
+};
 
 const toggleQueueClass = () => {
       getElement(".queue").style.transform= "translatex(-300px)";  
@@ -398,11 +422,12 @@ document.querySelector(".volume__button").addEventListener("mouseover", showVolu
 document.querySelector(".volume__button").addEventListener("mouseout", hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
 document.querySelector(".download__song").addEventListener("click", downloadSong);
-document.querySelector(".search").addEventListener("click",searchSong);
+document.querySelector(".search").addEventListener("click",searchInputField);
 document.querySelector(".queue").addEventListener("mouseover",toggleQueueClass);
 document
   .querySelector(".queue")
   .addEventListener("mouseout", toggleClass);
+document.querySelector(".search").addEventListener("click", searchInputField);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         event.preventDefault();

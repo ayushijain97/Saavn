@@ -41,6 +41,7 @@ body{
     margin-right: auto;
     margin-left: 300px;
     background-color: transparent;
+    will-change: transform;
    
 }
 .search__field:disabled{
@@ -396,22 +397,52 @@ body{
     opacity: 1!important;
 }
 
+/* Library features */
+.libraryHeading{
+    display: flex;
+    list-style-type:none;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600px;
+    font-family: 'Ubuntu', Arial, sans-serif;
+    text-align: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+    
+
+}
+.libraryHeading .li{
+    margin-left: 20px;
+    margin-right: 20px;
+}
 .songsLibrary_details{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.songsLibrary_details .songsLibrary_count{
+    justify-content: left;
+}
+.songsLibrary_secondQueue{
+    margin-top: 0px;
 }
 .songsLibrary__image{ 
     width: 40px;
     height: 40px;
-    border-radius: 50px;
+    margin-left: -230px;
+    border-radius: 10px;
+    
 }
 .songsLibrary__title{
-    justify-content: space-between;
+    color: grey;
+    margin-left: -230px;
 }
 .songsLibrary__author{
-    justify-content: space-between;
 }
 .songsLibrary__duration{
-    justify-content: flex-end;
+    margin-left: -230px;
 }
 
 
@@ -519,6 +550,7 @@ body{
         margin: 0 0 0 -22px;
         margin-bottom: 50px;
         font-size: 40px;
+
     }
 
     .search__field:disabled{
