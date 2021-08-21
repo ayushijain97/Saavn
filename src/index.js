@@ -8,7 +8,9 @@ import {
   renderSongsQueue,
   clearQueue,
   clearInput,
-  element
+  element,
+  renderSearchList,
+  clearSearchField,
 } from "./View/base.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
@@ -363,29 +365,34 @@ const downloadSong = () => {
 const searchInputField = (e) => {
   // switching between search bar
   document.querySelector(".search").style.display = "none";
-  document.querySelector(".searchSong").style.display = "flex";
+  document.querySelector(".searchSong").style.display = "block";
   document.querySelector(".cross").addEventListener("click", () => {
     document.querySelector(".searchSong").style.display = "none";
     document.querySelector(".search").style.display = "flex";
   });
+  
   document.querySelector(".clear__icon").addEventListener("click", () => {
     clearInput();
+    clearSearchField();
   });
+  
   document.addEventListener("keypress", async function(event) {
-    if (event.which === 13 || event.keyCode === 13) {
-            event.preventDefault();
-           
-   const query = element.inputField.value;
-     if(query)
-        {
-            const res = await axios(
+    if (event.keyCode === 13) {
+      event.stopPropagation();
+      const query = element.inputField.value;
+      if (query) {
+          try{
+                const res = await axios(
                 `https://ayushi-web-scrapper.herokuapp.com/music/search/${query}`
-            );
-            console.log("this query has songs",res.data);
-                clearInput();
-        } 
-    }
-  });
+                );
+                console.log("this query has songs", res.data);
+                 renderSearchList(res.data);
+             }catch(err){
+              console.log(err);
+                    } 
+            }
+         }
+    });
 };
 
 const toggleQueueClass = () => {

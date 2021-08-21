@@ -6,17 +6,21 @@ export const element = {
   neeraj: document.querySelector(".neeraj"),
   songsQueueHeader: document.querySelector(".queue_title"),
   inputField: document.querySelector(".search_text"),
+  list: document.querySelector(".searchingField"),
 };
 
 export const elementStrings = {
   loader: "loader",
 };
 export const clearInput = () => {
+  console.log(element)
    if (element.inputField.value) {
      element.inputField.value = "";
    }
 }
-
+export const clearSearchField = () => {
+    element.list.innerHTML="";
+};
 export const renderLoader = (parent) => {
   const loader = `
   <div class="${elementStrings.loader} play_size">
@@ -103,6 +107,18 @@ const renderSongsInnQueue = (data, index) => {
 
   return markup;
 };
+const renderList = (data) => {
+  const markup = `
+                <div class="songsList">
+                    <img src=${data.image} alt="" class="songsList_image"/>
+                    <div class="songsList_details">
+                        <h4 class="songsList_title">${limitTitleSize(data.title)}</h4>
+                        <p class="songsList_author">${limitTitleSize(data.singers)}</p>
+                    </div>        
+                </div>
+      `;
+      element.list.insertAdjacentHTML("beforeend", markup);
+};
 export const renderPage = (data) => {
       let firstRowData = data.slice(0,12);
       let insideDiv ='';
@@ -160,3 +176,6 @@ export const renderSongsQueue= (queue) => {
     }
 }
   
+export const renderSearchList  = (list) =>  {
+        list.forEach(renderList);
+}
