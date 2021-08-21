@@ -41,6 +41,7 @@ body{
     margin-right: auto;
     margin-left: 300px;
     background-color: transparent;
+    will-change: transform;
    
 }
 .search__field:disabled{
@@ -65,14 +66,19 @@ body{
     padding-right: 5px;
 }
 .searchSong{
-    margin-left: 50px;
     width: 1100px;
+    margin-top: 300px;
+    height: 300px;
+    margin-left: 50px;
     padding: 10px;
-    display: flex;
     border: 1px solid #e9e9e9;
     background-color: white;
     border-radius: 30px;
-    position: relative;
+}
+.searchInput{
+    display: flex;
+    border-bottom: 1px solid #e9e9e9;
+    align-items: center;
 }
 .search_text{
     width: 1000px;
@@ -103,6 +109,28 @@ body{
     padding: 5px;
     
 }
+.songsList{
+    display: flex;
+    width: 390px;
+    margin: 10px;
+}
+.songsList_image{
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 10px;
+}
+.songsList_title{
+    margin-bottom: 0;
+    margin-top: 10px;
+    font-size: 13px;
+}
+.songsList_author{
+    margin-top: 3px;
+    font-size: 12px;
+}
+
+
  /*
 *
 *               SideBar Feature
@@ -396,6 +424,56 @@ body{
     opacity: 1!important;
 }
 
+/* Library features */
+.libraryHeading{
+    display: flex;
+    list-style-type:none;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600px;
+    font-family: 'Ubuntu', Arial, sans-serif;
+    text-align: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+    
+
+}
+.libraryHeading .li{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.songsLibrary_details{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.songsLibrary_details .songsLibrary_count{
+    justify-content: left;
+}
+.songsLibrary_secondQueue{
+    margin-top: 0px;
+}
+.songsLibrary__image{ 
+    width: 40px;
+    height: 40px;
+    margin-left: -230px;
+    border-radius: 10px;
+    
+}
+.songsLibrary__title{
+    color: grey;
+    margin-left: -230px;
+}
+.songsLibrary__author{
+}
+.songsLibrary__duration{
+    margin-left: -230px;
+}
+
+
+
 
 @media all and (max-width: 1440px) and (min-width: 1200px ){
     .queue{
@@ -499,6 +577,7 @@ body{
         margin: 0 0 0 -22px;
         margin-bottom: 50px;
         font-size: 40px;
+
     }
 
     .search__field:disabled{

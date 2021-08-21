@@ -20,6 +20,7 @@
 
 </head>
 <body>
+
     <div class="container">
 
         <!-- header with search bar -->
@@ -35,22 +36,28 @@
               Search
             </div>
             </form>
-            <div class="search searchSong" style="display: none;";>
-            <div class="icons">
-                <svg class="search__icons" >
-                    <use href="./image/icons.svg#icon-magnifying-glass"></use>
-                </svg>
-            </div>
-            <div class="test">
-             <input type="text"  placeholder="Search songs"  class="search_text" />
-             </div>
-            <span class="clear__icon">clear</span>
-            <div class="cross">
-                <svg class="search__icons cross__icon" >
-                    <use href="./image/icons.svg#icon-circle-with-cross"></use>
-                </svg>
-            </div>
-            </div >
+                <div class=" searchSong" style="display: none;";>
+                    <div class="searchInput">
+                        <div class="icons">
+                            <svg class="search__icons" >
+                                <use href="./image/icons.svg#icon-magnifying-glass"></use>
+                            </svg>
+                        </div>
+                        <div class="test">
+                            <input type="text"  placeholder="Search songs"  class="search_text" />
+                        </div>
+                            <span class="clear__icon">clear</span>
+                        <div class="cross">
+                            <svg class="search__icons cross__icon" >
+                                <use href="./image/icons.svg#icon-circle-with-cross"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- List of songs -->
+                    <div class="searchingField">
+
+                    </div>
+                </div >
              
         </header>
         <!-- side bar -->
@@ -69,6 +76,39 @@
             </div>
         </aside>
         <!-- trending Now  -->
+
+        <div class="songsLibrary trending" style="display: none;">
+                        <header class="libraryHeading">
+                            <li>Songs</li>
+                            <li>Albums</li>
+                            <li>Podcasts</li>
+                            <li>History</li>
+                        </header>
+                    <div class="songsContainer">
+                        <div class="songsLibrary_details">
+                           <span class="songsLibrary_count">1.</span>
+                            <img src="https://c.saavncdn.com/535/Jannat-Ve-Hindi-2021-20210724115801-500x500.jpg" alt="" class="songsLibrary__image"/>
+                            <h4 class="songsLibrary__title">Madhur Kirtan</h4>
+                            <p class="songsLibrary__author">HindiRadio</p>
+                            <svg class="search__icon" >
+                                <use href="./image/icons.svg#icon-heart"></use>
+                            </svg>
+                            <p class="songsLibrary__duration">3:00</p>
+                          </div>
+                          
+                        <div class="songsLibrary_details">
+                           <span class="songsLibrary_count">2.</span>
+                            <img src="https://c.saavncdn.com/535/Jannat-Ve-Hindi-2021-20210724115801-500x500.jpg" alt="" class="songsLibrary__image"/>
+                            <h4 class="songsLibrary__title">Madhur Kirtan</h4>
+                            <p class="songsLibrary__author">HindiRadio</p>
+                             <svg class="search__icon" >
+                                <use href="./image/icons.svg#icon-heart"></use>
+                            </svg>
+                            <p class="songsLibrary__duration">4:38</p>
+                        </div>
+                    </div>
+            </div>
+
     <div class="section_container">
         <section  class="trending">
             <h2>Trending Now</h2>

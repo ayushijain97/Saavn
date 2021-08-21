@@ -8,6 +8,9 @@ import {
   renderSongsQueue,
   clearQueue,
   clearInput,
+  element,
+  renderSearchList,
+  clearSearchField,
 } from "./View/base.js";
 // 1.)creating the audio tag
 const audioPlayer = document.createElement("audio");
@@ -359,17 +362,38 @@ const downloadSong = () => {
       .catch(() => alert("oh no!"));
 }
 
-const searchSong = () =>{
-    document.querySelector(".search").style.display = "none";
-    document.querySelector(".searchSong").style.display = "flex";
-    document.querySelector(".cross").addEventListener("click", () => {
-      document.querySelector(".searchSong").style.display = "none";
-      document.querySelector(".search").style.display = "flex";
+const searchInputField = (e) => {
+  // switching between search bar
+  document.querySelector(".search").style.display = "none";
+  document.querySelector(".searchSong").style.display = "block";
+  document.querySelector(".cross").addEventListener("click", () => {
+    document.querySelector(".searchSong").style.display = "none";
+    document.querySelector(".search").style.display = "flex";
+  });
+  
+  document.querySelector(".clear__icon").addEventListener("click", () => {
+    clearInput();
+    clearSearchField();
+  });
+  
+  document.addEventListener("keypress", async function(event) {
+    if (event.keyCode === 13) {
+      event.stopPropagation();
+      const query = element.inputField.value;
+      if (query) {
+          try{
+                const res = await axios(
+                `https://ayushi-web-scrapper.herokuapp.com/music/search/${query}`
+                );
+                console.log("this query has songs", res.data);
+                 renderSearchList(res.data);
+             }catch(err){
+              console.log(err);
+                    } 
+            }
+         }
     });
-    document.querySelector(".clear__icon").addEventListener("click", () => {
-            clearInput();
-    });
-}
+};
 
 const toggleQueueClass = () => {
       getElement(".queue").style.transform= "translatex(-300px)";  
@@ -398,11 +422,12 @@ document.querySelector(".volume__button").addEventListener("mouseover", showVolu
 document.querySelector(".volume__button").addEventListener("mouseout", hideVolume);
 document.querySelector(".dropDown").addEventListener("change", playingSpeed);
 document.querySelector(".download__song").addEventListener("click", downloadSong);
-document.querySelector(".search").addEventListener("click",searchSong);
+document.querySelector(".search").addEventListener("click",searchInputField);
 document.querySelector(".queue").addEventListener("mouseover",toggleQueueClass);
 document
   .querySelector(".queue")
   .addEventListener("mouseout", toggleClass);
+document.querySelector(".search").addEventListener("click", searchInputField);
 document.addEventListener("keypress", function(event) {
     if (event.which === 32 || event.keyCode === 32) {
         event.preventDefault();
